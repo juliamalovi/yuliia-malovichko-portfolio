@@ -1,14 +1,19 @@
 import { Card, CardContent } from "@/components/ui/card"
 import profilePhoto from "../assets/me.jpg";
 import { Avatar, AvatarImage } from "@radix-ui/react-avatar";
+import { useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const HomePage = () => {
+    const [imageLoaded, setImageLoaded] = useState(false)
+
     return (
         <Card className="w-full my-6">
             <CardContent className="p-6 flex flex-col md:flex-row gap-6">
                 <div className="flex-shrink-0">
                     <Avatar>
-                        <AvatarImage className="w-72 rounded-full" src={profilePhoto} alt="Profile picture" />
+                        {!imageLoaded && <Skeleton className="w-72 h-72 rounded-full" />}
+                        <AvatarImage className="w-72 rounded-full" onLoad={() => setImageLoaded(true)} src={profilePhoto} alt="Profile picture" style={{ display: imageLoaded ? 'block' : 'none' }} />
                     </Avatar>
                 </div>
                 <div className="flex-grow">
